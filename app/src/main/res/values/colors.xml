@@ -5,4 +5,8 @@
     <color name="button_green">#699067</color>
     <color name="button_orange">#d45b22</color>
     <color name="button_blue">#2a98bb</color>
+    <color name="primary_main_day">#e56c33</color>
+    <color name="primary_main_var_day">#f67d44</color>
+    <color name="secondary_main_night">#f67d44</color>
+    <color name="secondary_main_var_night">#f67d44</color>
 </resources>
