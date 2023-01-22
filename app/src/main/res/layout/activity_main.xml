@@ -5,11 +5,15 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0sp"
+        android:layout_height="210dp"
         android:text="@string/tip"
-        android:layout_weight="1000" />
+        android:padding="16dp"
+        android:gravity="bottom|right"
+        android:textSize="24dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
