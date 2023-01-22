@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+
+    val state = CalculatorStateMachine()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,7 +18,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val listener = View.OnClickListener { view ->
-        Log.d("MainActivity::listener", "$view")
+        //Log.d("MainActivity::listener", "$view")
+
+        state.addSymbolToTheFormulaEnd("${view.tag}")
+        println(state.formula)
+
+        val textView = findViewById(R.id.formula) as TextView
+        textView.text = state.formula
 
 //        when (view.id) {
 //        }
