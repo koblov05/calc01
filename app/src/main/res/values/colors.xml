@@ -11,4 +11,5 @@
     <color name="secondary_main_var_night">#f67d44</color>
     <color name="space_gray">#4E4B4A</color>
     <color name="button_teal">#5B8AB8</color>
+    <color name="button_red">#ff0000</color>
 </resources>
