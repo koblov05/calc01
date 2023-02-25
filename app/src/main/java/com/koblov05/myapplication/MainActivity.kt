@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private val listener_equal = View.OnClickListener { view ->
 
+        state.testEq()
         println(state.formula)
 
         val textView = findViewById(R.id.formula) as TextView

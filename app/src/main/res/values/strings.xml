@@ -21,4 +21,6 @@
     <string name="six_button">6</string>
     <string name="point_button">,</string>
     <string name="demolition_button">del</string>
+    <string name="illegal_dot">Ошибка записи десятичного разделителя</string>
+    <string name="zeros_integer_part">Много нулей в целой части числа</string>
 </resources>

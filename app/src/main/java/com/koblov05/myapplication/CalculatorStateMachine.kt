@@ -16,4 +16,13 @@ class CalculatorStateMachine {
             formula = formula.substring(0, formula.length - 1)
         }
     }
+
+    fun testEq() {
+        val testStr="a+b*c-d/c+a*c*z"
+        val parser=Parser()
+        var res = parser.splitInToParts(testStr)
+        var lastOperation = parser.findLastOperation(res)
+        println(res)
+        println(lastOperation)
+    }
 }
