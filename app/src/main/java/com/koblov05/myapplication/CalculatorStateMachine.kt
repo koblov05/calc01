@@ -18,11 +18,11 @@ class CalculatorStateMachine {
     }
 
     fun testEq() {
-        val testStr="a+b*c-d/c+a*c*z"
-        val parser=Parser()
-        var res = parser.splitInToParts(testStr)
-        var lastOperation = parser.findLastOperation(res)
-        println(res)
-        println(lastOperation)
+//        val testStr="27.3/3+9-2*2"
+        val parser = Parser()
+        var list = parser.splitInToParts(formula)
+
+        var root = parser.createOperationTree(list)
+        println(root.getResult())
     }
 }

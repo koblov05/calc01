@@ -14,8 +14,6 @@ class Operation(
     fun getResult(): Float {
         var result: Float
 
-        println("!!! getResult. Type is ${action}. Left is ${leftValue}. Right is ${rightValue}. Const is ${constantValue}")
-
         when (action) {
             OperationType.PLUS ->
                 result = (leftValue?.getResult() ?: 0F) + (rightValue?.getResult() ?: 0F)

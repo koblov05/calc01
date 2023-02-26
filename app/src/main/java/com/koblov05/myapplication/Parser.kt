@@ -2,32 +2,6 @@ package com.koblov05.myapplication
 
 class Parser {
 
-//    fun getResult(inputLine: String): Operation {
-//        try {
-//            if (inputLine.contains('+')
-//                || inputLine.contains('-')
-//                || inputLine.contains('*')
-//                || inputLine.contains('/')
-//            ) {
-//
-//            }
-//        } catch (e: ParserException) {
-//            println(e.message)
-//        }
-//    }
-
-    fun isConst(str: String): Float? {
-        var result: Float? = null
-
-        try {
-            result = str.toFloat()
-        } catch (e: NumberFormatException) {
-            println(e.message)
-        }
-
-        return result
-    }
-
     fun splitInToParts (str: String): MutableList<String> {
         var result: MutableList<String> = arrayListOf()
 
@@ -72,5 +46,66 @@ class Parser {
         }
 
         return result
+    }
+
+    fun getLeftPart(list: MutableList<String>, borderIndex: Int): MutableList<String> {
+        var result: MutableList<String> = arrayListOf()
+
+        for (i in 0..borderIndex - 1) {
+            result.add(list[i])
+        }
+
+        return result
+    }
+
+    fun getRightPart(list: MutableList<String>, borderIndex: Int): MutableList<String> {
+        var result: MutableList<String> = arrayListOf()
+
+        for (i in borderIndex + 1..list.size - 1) {
+            result.add(list[i])
+        }
+
+        return result
+    }
+
+    fun getOperationType(operation: String): OperationType {
+        var result : OperationType = OperationType.CONSTANT
+
+        if (operation == "+") {
+            result = OperationType.PLUS
+        }
+
+        if (operation == "-") {
+            result = OperationType.MINUS
+        }
+
+        if (operation == "*") {
+            result = OperationType.MULTIPLICATION
+        }
+
+        if (operation == "/") {
+            result = OperationType.DIVISION
+        }
+
+        return result
+    }
+
+    fun createOperationTree(list: MutableList<String>): Operation {
+        if (list.size == 1){
+            val value = list.first().toFloat()
+            return Operation(leftValue = null, rightValue = null, constantValue = value, action = OperationType.CONSTANT)
+        }
+
+        val parser = Parser()
+        val lastOperation = parser.findLastOperation(list)
+        val operationType = parser.getOperationType(list[lastOperation!!])
+
+        val leftList = parser.getLeftPart(list, lastOperation)
+        val leftTreeNode = createOperationTree(leftList)
+
+        val rightList = parser.getRightPart(list, lastOperation)
+        val rightTreeNode = createOperationTree(rightList)
+
+        return Operation(leftValue = leftTreeNode, rightValue = rightTreeNode, constantValue = null, action = operationType)
     }
 }
