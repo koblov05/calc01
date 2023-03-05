@@ -21,6 +21,10 @@ class Parser {
             }
         }
 
+        if (result[0] == ""){
+            result.removeAt(0)
+        }
+
         return result
     }
 
@@ -95,6 +99,14 @@ class Parser {
             val value = list.first().toFloat()
             return Operation(leftValue = null, rightValue = null, constantValue = value, action = OperationType.CONSTANT)
         }
+
+        if (list.size == 2 && list[0]=="-"){
+            val str = list[0] + list[1]
+            val value = str.toFloat()
+            return Operation(leftValue = null, rightValue = null, constantValue = value, action = OperationType.CONSTANT)
+        }
+
+
 
         val parser = Parser()
         val lastOperation = parser.findLastOperation(list)

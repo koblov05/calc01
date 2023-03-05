@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         println(state.formula)
 
         val textView = findViewById(R.id.formula) as TextView
-        textView.text = state.formula
+        textView.text = state.getHistory()
     }
 
     private val listener_ac = View.OnClickListener { view ->
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         println(state.formula)
 
         val textView = findViewById(R.id.formula) as TextView
-        textView.text = state.formula
+        textView.text = state.getHistory()
     }
 
     private val listener_del = View.OnClickListener { view ->
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         println(state.formula)
 
         val textView = findViewById(R.id.formula) as TextView
-        textView.text = state.formula
+        textView.text = state.getHistory()
     }
 
     private val listener_equal = View.OnClickListener { view ->
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         println(state.formula)
 
         val textView = findViewById(R.id.formula) as TextView
-        textView.text = state.formula
+        textView.text = state.getHistory()
     }
 
     private fun setListeners() {
