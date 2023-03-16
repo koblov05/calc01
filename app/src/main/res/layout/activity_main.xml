@@ -228,7 +228,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/point_button"
-            android:tag=","
+            android:tag="."
             android:textSize="40sp"
             android:layout_margin="6sp"
             android:backgroundTint="@color/space_gray"

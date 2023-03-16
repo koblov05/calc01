@@ -8,8 +8,16 @@ class Parser {
         var number: String = ""
 
         for (i in 0..str.length - 1) {
-            if (str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*') {
-                result.add(number)
+            if (str[i] == '(' || str[i] == ')') {
+                if (number.isNotEmpty()) {
+                    result.add(number)
+                }
+                result.add(str[i].toString())
+                number=""
+            } else if (str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*') {
+                if (number.isNotEmpty()) {
+                    result.add(number)
+                }
                 result.add(str[i].toString())
                 number=""
             } else {
@@ -17,13 +25,12 @@ class Parser {
             }
 
             if (i==str.length - 1) {
-                result.add(number)
+                if (number.isNotEmpty()) {
+                    result.add(number)
+                }
             }
         }
 
-        if (result[0] == ""){
-            result.removeAt(0)
-        }
 
         return result
     }
@@ -31,16 +38,31 @@ class Parser {
     fun findLastOperation(list: MutableList<String>): Int? {
         var result: Int?= null
 
-        var operationOrder: MutableList<Int> = arrayListOf()
+        var noBracesList = dropBraces(list)
 
-        for (i in 0..list.size - 1) {
-            if (list[i] == "/" || list[i] =="*") {
+        var operationOrder: MutableList<Int> = arrayListOf()
+        var bracesCounter = 0
+
+        for (i in 0..noBracesList.size - 1) {
+            if (noBracesList[i] == "(") {
+                bracesCounter += 1
+            } else if (noBracesList[i] == ")") {
+                bracesCounter -= 1
+            }
+
+            if ((noBracesList[i] == "/" || noBracesList[i] =="*") && bracesCounter == 0) {
               operationOrder.add(i)
             }
         }
 
-        for (i in 0..list.size - 1) {
-            if (list[i] == "+" || list[i] =="-") {
+        for (i in 0..noBracesList.size - 1) {
+            if (noBracesList[i] == "(") {
+                bracesCounter += 1
+            } else if (noBracesList[i] == ")") {
+                bracesCounter -= 1
+            }
+
+            if ((noBracesList[i] == "+" || noBracesList[i] =="-")  && bracesCounter == 0) {
                 operationOrder.add(i)
             }
         }
@@ -59,6 +81,8 @@ class Parser {
             result.add(list[i])
         }
 
+        result = dropBraces(result)
+
         return result
     }
 
@@ -68,6 +92,8 @@ class Parser {
         for (i in borderIndex + 1..list.size - 1) {
             result.add(list[i])
         }
+
+        result = dropBraces(result)
 
         return result
     }
@@ -106,8 +132,6 @@ class Parser {
             return Operation(leftValue = null, rightValue = null, constantValue = value, action = OperationType.CONSTANT)
         }
 
-
-
         val parser = Parser()
         val lastOperation = parser.findLastOperation(list)
         val operationType = parser.getOperationType(list[lastOperation!!])
@@ -119,5 +143,27 @@ class Parser {
         val rightTreeNode = createOperationTree(rightList)
 
         return Operation(leftValue = leftTreeNode, rightValue = rightTreeNode, constantValue = null, action = operationType)
+    }
+
+    fun dropBraces(list: MutableList<String>): MutableList<String> {
+        var bracesCounter: MutableList<Int> = arrayListOf()
+
+        for (i in 0..list.size - 1) {
+            if (list[i] == "(") {
+                bracesCounter.add(i)
+            }
+
+            if (i == list.size - 1 && list.last() == ")" && bracesCounter.first() == 0 && bracesCounter.size == 1) {
+                list.removeAt(0)
+                list.removeAt(list.size - 1)
+                break
+            }
+
+            if (list[i] == ")") {
+                bracesCounter.removeLast()
+            }
+        }
+
+        return list
     }
 }
